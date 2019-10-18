@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const authinticate = require('./authenticate-middleware');
 const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets');
 
@@ -38,11 +37,11 @@ router.post('/login', (req, res) => {
     })
 });
 
+
 //generate JWT for frontend auth
 function generateToken(user) {
   console.log(user.id); 
   const payload = {
-    subject: user.id,
     username: user.username
   }
 

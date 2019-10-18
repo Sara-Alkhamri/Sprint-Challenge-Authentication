@@ -8,20 +8,21 @@ const secrets = require('../config/secrets');
 const Users = require('./auth-model');
 
 module.exports = (req, res, next) => {
-  const token = req.headers.authorization
-
-  if (token) {
-    jwt.verify(token, "keep it secret", (err, decodedToken) => {
-      if (err) {
-        res.status(401).json({ message: 'You shall not pass!' });
-      }
-      else {
-        req.user = { username: decodedToken.username }
-        next()
+  const token = req.headers.authorization;
+  if(token) {
+    //check that token is valid
+    jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
+      if(err) {
+        //foul play
+        console.log(err)
+        res.status(401).json({ message: 'Invalid Credentials' });
+      } else {
+        //token is good
+        req.user = {username: decodedToken.username};
+        next();
       }
     })
-  }
-  else {
+  } else {
     res.status(400).json({ message: "no credentials provided" })
   }
-};
+};  
