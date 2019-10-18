@@ -8,6 +8,10 @@
     "test": "jest --watch",
     "start": "node index.js"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LambdaSchool/Sprint-Challenge-Authentication.git"
